@@ -2,9 +2,13 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+//    kotlin("jvm") version "1.6.21" // or kotlin("multiplatform") or any other kotlin plugin
+    kotlin("plugin.serialization") version "1.6.21"
 }
 
 version = "1.0"
+val ktorVersion = "2.0.2"
+val serialization_version = "1.3.3"
 
 kotlin {
     android()
@@ -16,20 +20,30 @@ kotlin {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = "14.1"
-        podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "shared"
+            baseName = "WanAndroidApiModule"
         }
     }
     
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("com.google.code.gson:gson:2.9.0")
+
+            }
+        }
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting

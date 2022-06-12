@@ -1,4 +1,4 @@
-package com.yqq.wanandroid
+package com.yqq.wanandroidapimodule
 
 import platform.UIKit.UIDevice
 

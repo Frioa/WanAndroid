@@ -8,4 +8,4 @@ pluginManagement {
 
 rootProject.name = "WanAndroid"
 include(":androidApp")
-include(":shared")
+include(":WanAndroidApiModule")
